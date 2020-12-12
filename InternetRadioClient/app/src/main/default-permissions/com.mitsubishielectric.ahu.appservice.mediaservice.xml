@@ -36,7 +36,6 @@
     <exception package="com.hackathon.internetradio.internetradioclient">
         <!-- Storage -->
         <permission name="android.permission.READ_EXTERNAL_STORAGE"/>
-        <permission name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     </exception>
 
 </exceptions>
