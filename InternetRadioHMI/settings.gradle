@@ -1,0 +1,10 @@
+include ':app', ':internetradiointerface', ':commoninterface'
+
+project(':internetradiointerface').projectDir = new File(settingsDir, '../InternetRadioClient/internetradiointerface/')
+project(':commoninterface').projectDir = new File(settingsDir, '../InternetRadioClient/commoninterface/')
+
+
+
+
+
+

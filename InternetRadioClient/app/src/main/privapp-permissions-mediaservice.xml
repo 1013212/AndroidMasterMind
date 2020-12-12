@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * COPYRIGHT (C) 2018-2019 MITSUBISHI ELECTRIC CORPORATION
+ * ALL RIGHTS RESERVED
+ */
+-->
+
+<permissions>
+
+    <privapp-permissions package="com.hackathon.internetradio.internetradioclient">
+        <permission name="android.permission.READ_EXTERNAL_STORAGE"/>
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    </privapp-permissions>
+
+</permissions>

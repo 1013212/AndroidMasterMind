@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">InternetRadioClient</string>
+    <string name="internetradio_client_package_name">com.hackathon.internetradio.internetradioclient</string>
+</resources>

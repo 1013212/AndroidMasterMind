@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Dimensions related to popup common. -->
+    <dimen name="popup_width">962dp</dimen>
+    <dimen name="popup_height">120dp</dimen>
+    <dimen name="popup_one_button_height">120dp</dimen>
+    <dimen name="popup_padding">10dp</dimen>
+    <dimen name="popup_button_layout_padding">1dp</dimen>
+    <dimen name="popup_two_button_width">850dp</dimen>
+    <dimen name="popup_text_margin_bottom">40dp</dimen>
+    <dimen name="popup_text_margin_top">15dp</dimen>
+    <dimen name="popup_text_title_size">40sp</dimen>
+    <dimen name="popup_text_size">26.7sp</dimen>
+    <dimen name="popup_image_width">110dp</dimen>
+    <dimen name="popup_image_height">80dp</dimen>
+    <dimen name="popup_image_margin">15dp</dimen>
+    <dimen name="popup_close_button_margin_top">15dp</dimen>
+    <dimen name="popup_close_button_margin_end">15dp</dimen>
+    <dimen name="popup_image_margin_top">60dp</dimen>
+    <dimen name="popup_close_button_width">15dp</dimen>
+    <dimen name="popup_one_button_full_width">300dp</dimen>
+    <dimen name="popup_button_full_width">750dp</dimen>
+    <dimen name="popup_button_width">0dp</dimen>
+    <dimen name="popup_button_size">80dp</dimen>
+
+    <!-- Dimensions related to volume popup. -->
+    <dimen name="popup_volume_width">730dp</dimen>
+    <dimen name="popup_volume_height">65dp</dimen>
+    <dimen name="popup_volume_seekbar_width">700dp</dimen>
+    <dimen name="popup_volume_seekbar_height">60dp</dimen>
+    <dimen name="popup_volume_seekbar_margin_top">15dp</dimen>
+    <dimen name="popup_volume_image_width">80dp</dimen>
+    <dimen name="popup_volume_image_height">80dp</dimen>
+    <dimen name="popup_volume_down_arrow_btn_width">40dp</dimen>
+    <dimen name="popup_volume_down_arrow_btn_height">40dp</dimen>
+    <dimen name="popup_down_arrow_btn_margin">35dp</dimen>
+    <dimen name="popup_down_text_margin">25dp</dimen>
+    <dimen name="popup_volume_progress_text_size">30sp</dimen>
+    <dimen name="popup_volume_margin_start">100dp</dimen>
+
+</resources>
