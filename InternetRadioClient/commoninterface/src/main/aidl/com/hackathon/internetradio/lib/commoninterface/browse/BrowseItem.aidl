@@ -1,9 +1,7 @@
 /**
  * @file        BrowseItem.aidl
  * @brief       Aidl for browse item
-
- *
- * @author      Austin Renitez C
+ * @author      PG
  */
 
 package com.hackathon.internetradio.lib.commoninterface.browse;

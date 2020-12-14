@@ -1,18 +1,18 @@
 /**
  * @file        SourceNotifications.java
  * @brief       Class for passing notification to Handler.
- * @copyright   COPYRIGHT (C) 2018 MITSUBISHI ELECTRIC CORPORATION
- *              ALL RIGHTS RESERVED
+
+
  * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.internetradioclient.data.utils;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.hackathon.internetradio.internetradioclient.data.InternetRadioClientHandler;
 import com.hackathon.internetradio.internetradioclient.data.InternetRadioClientManager;
-import com.hackathon.internetradio.lib.commoninterface.DeviceConnectionInfo;
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
 import com.hackathon.internetradio.lib.commoninterface.browse.BrowseList;
 import com.hackathon.internetradio.lib.commoninterface.constants.Constants;
@@ -31,7 +31,7 @@ public class SourceNotifications implements ISourceNotifications {
      * @brief constructor to get media handler
      */
     public SourceNotifications() {
-        InternetRadioClientManager internetRadioClientManager = InternetRadioClientManager.getInternetRadioClientManagerManager();
+        InternetRadioClientManager internetRadioClientManager = InternetRadioClientManager.getInternetRadioClientManager();
         mClientHandler = new InternetRadioClientHandler(internetRadioClientManager);
     }
 
@@ -41,8 +41,9 @@ public class SourceNotifications implements ISourceNotifications {
      */
     @Override
     public void notifyPlayStatus(int playStatus) {
+        mClientHandler.removeMessages(Constants.AIDL_NOTIFY_PLAY_STATUS);
         mClientHandler.sendMessage(
-                mClientHandler.obtainMessage(0, playStatus));
+                mClientHandler.obtainMessage(Constants.AIDL_NOTIFY_PLAY_STATUS, playStatus));
     }
 
     /**
@@ -57,7 +58,7 @@ public class SourceNotifications implements ISourceNotifications {
     }
 
     @Override
-    public void notifyDeviceConnection(DeviceConnectionInfo deviceConnectInfo) {
+    public void notifyDeviceConnection(boolean status) {
 
     }
 
@@ -72,10 +73,12 @@ public class SourceNotifications implements ISourceNotifications {
      * @param browseList : Browse list items
      */
     @Override
-    public void notifyCategoryListItems(BrowseList browseList) {
-        mClientHandler.removeMessages(0);
+    public void notifyStationListItems(BrowseList browseList) {
+        Log.d("NOTIFY_Category_entry", "notifyStationListItems: " + browseList.toString());
+        mClientHandler.removeMessages(Constants.AIDL_NOTIFY_CATEGORY_LIST_ITEMS);
         mClientHandler.sendMessage(
-                mClientHandler.obtainMessage(0, browseList));
+                mClientHandler.obtainMessage(Constants.AIDL_NOTIFY_CATEGORY_LIST_ITEMS, browseList));
+        Log.d("NOTIFY_Category_exit", "notifyStationListItems: " + browseList.toString());
     }
 
     /**
@@ -84,9 +87,9 @@ public class SourceNotifications implements ISourceNotifications {
      */
     @Override
     public void notifyCurrentTrackListItems(BrowseList browseList) {
-        mClientHandler.removeMessages(0);
+        mClientHandler.removeMessages(Constants.AIDL_NOTIFY_CATEGORY_LIST_ITEMS);
         mClientHandler.sendMessage(
-                mClientHandler.obtainMessage(0, browseList));
+                mClientHandler.obtainMessage(Constants.AIDL_NOTIFY_CATEGORY_LIST_ITEMS, browseList));
     }
 
     /**

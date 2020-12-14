@@ -1,9 +1,9 @@
 /**
  * @file        TrackInfo.java
- * @brief       Class for now play song track details
+ * @brief       This class is responsible for handling bluetooth call-backs
 
  *
- * @author      Resmi TM
+ * @author      Lincy Babu
  */
 
 package com.hackathon.internetradio.lib.commoninterface;
@@ -11,72 +11,90 @@ package com.hackathon.internetradio.lib.commoninterface;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 /**
- * @brief Class for holding now play song track details.
+ * @brief Class for holding  now play song details
  */
 public class TrackInfo implements Parcelable {
 
     /**
      * @brief Interface that must be implemented and provided as a public CREATOR
-     *       field that generates instances of your Parcelable class from a Parcel.
+     *        field that generates instances of your Parcelable class from a Parcel.
      */
-    public static final Creator<TrackInfo> CREATOR = new Creator<TrackInfo>() {
+    public static final Creator<TrackInfo> CREATOR =
+            new Creator<TrackInfo>() {
 
         public TrackInfo createFromParcel(Parcel in) {
             return new TrackInfo(in);
         }
 
         public TrackInfo[] newArray(int size) {
+
             return new TrackInfo[size];
         }
     };
+    /**
+     * Member variable to store url.
+     */
+    private String mMediaId;
 
     /**
-     * Variable to store object of MetaData.
+     * Member variable to store title.
      */
-    private MetaData mMetaData;
+    private String mTitle;
 
     /**
-     * Integer variable to store current track number.
+     * Member variable to store artist.
      */
-    private int mCurrentTrack;
+    private String mArtist;
 
     /**
-     * Integer variable to store total track count.
+     * Member variable to store album.
      */
-    private int mTotalTrack;
+    private String mAlbum;
 
     /**
-     *  Variable to check progressbar visibility status.
+     * Member variable to store genre.
      */
-    private boolean mIsProgressbarVisible;
+    private String mGenre;
+
+    /**
+     * Member variable to store musicFilename.
+     */
+    private String mMusicFilename;
+
+    /**
+     * Member variable to store albumArtResName.
+     */
+    private String mAlbumArtResName;
+
 
     /**
      * @brief Constructor for this class
-     * @param metaData : metadata
-     * @param currentTrack :  current track number
-     * @param totalTrack :    total track number
+     *
+     * @param id :                song url
+     * @param title :             title
+     * @param artist :            artist
+     * @param album :             album
+     * @param genre :             genre
+     * @param fileName :          fileName
+     * @param coverArt :          coverArt
      */
-    public TrackInfo(MetaData metaData, int currentTrack, int totalTrack) {
-        mMetaData = metaData;
-        mCurrentTrack = currentTrack;
-        mTotalTrack = totalTrack;
-        mIsProgressbarVisible = true;
+    public TrackInfo(String id, String title, String artist, String album,
+                     String genre, String fileName, String coverArt) {
+        mMediaId = id;
+        mTitle = title;
+        mArtist = artist;
+        mAlbum = album;
+        mGenre = genre;
+        mMusicFilename = fileName;
+        mAlbumArtResName = coverArt;
     }
 
     /**
-     * @brief Constructor for this class
-     * @param metaData : metadata
-     * @param currentTrack :  current track number
-     * @param totalTrack :    total track number
-     * @param status : progressbar visibility status.
+     * @brief Constructor for TrackInfo
      */
-    public TrackInfo(MetaData metaData, int currentTrack, int totalTrack, boolean status) {
-        mMetaData = metaData;
-        mCurrentTrack = currentTrack;
-        mTotalTrack = totalTrack;
-        mIsProgressbarVisible = status;
+    public TrackInfo(){
+
     }
 
     /**
@@ -88,42 +106,47 @@ public class TrackInfo implements Parcelable {
     }
 
     /**
-     * @brief Flatten this object in to a Parcel.
-     * @param dest :  The Parcel in which the object should be written.
+     * @brief Method to flatten this object in to a Parcel.
+     * @param dest : The Parcel in which the object should be written.
      * @param flags : Additional flags about how the object should be written.
-     *               May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
+     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         if (dest != null) {
-            dest.writeParcelable(mMetaData, flags);
-            dest.writeInt(mCurrentTrack);
-            dest.writeInt(mTotalTrack);
-            dest.writeInt(mIsProgressbarVisible ? 1 : 0);
+            dest.writeString(mMediaId);
+            dest.writeString(mTitle);
+            dest.writeString(mArtist);
+            dest.writeString(mAlbum);
+            dest.writeString(mGenre);
+            dest.writeString(mMusicFilename);
+            dest.writeString(mAlbumArtResName);
+
         }
     }
 
     /**
-     * @brief Read from parcel class
-     * @param in : parcel object
+     * @brief Method for read from parcel class.
+     * @param in : parcel object.
      */
     public void readFromParcel(Parcel in) {
         if (in != null) {
-            mMetaData = in.readParcelable(MetaData.class.getClassLoader());
-            mCurrentTrack = in.readInt();
-            mTotalTrack = in.readInt();
-            mIsProgressbarVisible = (in.readInt() == 0 ? false : true);
+            mMediaId = in.readString();
+            mTitle = in.readString();
+            mArtist = in.readString();
+            mAlbum = in.readString();
+            mGenre = in.readString();
+            mMusicFilename = in.readString();
+            mAlbumArtResName = in.readString();
+
         }
     }
 
     /**
      * @brief Describe the kinds of special objects contained in this Parcelable
-     *       instance's marshaled representation. For example, if the object will
-     *       include a file descriptor in the output of {@link #writeToParcel(Parcel, int)},
-     *       the return value of this method must include the
-     *       @link #CONTENTS_FILE_DESCRIPTOR} bit.
-     * @return a bitmask indicating the set of special object types marshaled
-     *        by this Parcelable object instance.
+     *         instance's marshaled representation.
+     * @return int : a bitmask indicating the set of special object types marshaled
+     *         by this Parcelable object instance.
      */
     @Override
     public int describeContents() {
@@ -131,67 +154,131 @@ public class TrackInfo implements Parcelable {
     }
 
     /**
-     * @brief Method to get metadata.
-     * @return MetaData : metadata
+     * @brief Method to get song ID
+     * @return String : song ID
      */
-    public MetaData getMetaData() {
-        return mMetaData;
+    public String getId() {
+        return mMediaId;
     }
 
     /**
-     * @brief Method to set metadata.
-     * @param metaData : metadata
+     * @brief Method to set song ID
+     * @param id : song ID
      */
-    public void setMetaData(MetaData metaData) {
-        mMetaData = metaData;
+    public void setId(String id) {
+        mMediaId = id;
     }
 
     /**
-     * @brief Method to get current track number.
-     * @return int : current track number
+     * @brief Method to get album name
+     * @return String : album name
      */
-    public int getCurrentTrack() {
-        return mCurrentTrack;
+    public String getAlbumName() {
+        return mAlbum;
     }
 
     /**
-     * @brief Method to set current track number.
-     * @param currentTrack : current track number
+     * @brief Method to set album name
+     * @param albumName : album name of song
      */
-    public void setCurrentTrack(int currentTrack) {
-        mCurrentTrack = currentTrack;
+    public void setAlbumName(String albumName) {
+        mAlbum = albumName;
     }
 
     /**
-     * @brief Method to get total track number.
-     * @return int : total track number
+     * @brief Method to get Title
+     * @return String : Title
      */
-    public int getTotalTrack() {
-        return mTotalTrack;
+    public String getTitle() {
+        return mTitle;
     }
 
     /**
-     * @brief Method to set current track number.
-     * @param totalTrack : total track number
+     * @brief Method to set  Title
+     * @param Title : Title
      */
-    public void setTotalTrack(int totalTrack) {
-        mTotalTrack = totalTrack;
+    public void setTitle(String Title) {
+        mTitle = Title;
     }
 
     /**
-     * @brief Method to set ProgressbarVisibilityStatus.
-     * @param status : progressbar visibility status
+     * @brief Method to get song name
+     * @return String : song name
      */
-    public void setIsProgressbarVisible(boolean status) {
-        mIsProgressbarVisible = status;
+    public String getFileName() {
+        return mMusicFilename;
     }
 
     /**
-     * @brief Method to get ProgressbarVisibilityStatus
-     * @return boolean : progressbar visibility status
+     * @brief Method to set song name
+     * @param fileName : song name
      */
-    public boolean getIsProgressbarVisible() {
-        return mIsProgressbarVisible;
+    public void setAlbumSongName(String fileName) {
+        mMusicFilename = fileName;
+    }
+
+    /**
+     * @brief Method to get CoverArt
+     * @return String : CoverArt
+     */
+    public String getCoverArt() {
+        return mAlbumArtResName;
+    }
+
+    /**
+     * @brief Method to set coverArt
+     * @param coverArt : coverArt
+     */
+    public void setSongUrl(String coverArt) {
+        mAlbumArtResName = coverArt;
+    }
+
+    /**
+     * @brief Method to get artist name
+     * @return String : artist name
+     */
+    public String getArtist() {
+        return mArtist;
+    }
+
+    /**
+     * @brief Method to set artist name
+     * @param artist : artist name of song
+     */
+    public void setArtist(String artist) {
+        mArtist = artist;
+    }
+
+    /**
+     * @brief Method to get genre name
+     * @return String : genre name
+     */
+    public String getGenre() {
+        return mGenre;
+    }
+
+    /**
+     * @brief Method to set genre name
+     * @param genre : genre name
+     */
+    public void setGenre(String genre) {
+        mGenre = genre;
+    }
+
+    /**
+     * @brief Method to return TrackInfo valves as string
+     * @return String : TrackInfo values
+     */
+    @Override
+    public String toString() {
+        return "TrackInfo{"
+                + ", mMediaId=" + mMediaId
+                + ", mTitle=" + mTitle
+                + "mArtist=" + mArtist
+                + "mAlbum=" + mAlbum
+                + "mGenre=" + mGenre
+                + "mMusicFilename=" + mMusicFilename
+                + "mAlbumArtResName=" + mAlbumArtResName
+                + '}';
     }
 }
-

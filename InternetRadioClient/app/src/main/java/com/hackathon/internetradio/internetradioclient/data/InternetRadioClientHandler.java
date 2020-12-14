@@ -2,8 +2,6 @@
  * @file        InternetRadioClientHandler.java
  * @brief       Handler class for passing AIDL broadcast notification.
  *              This will avoid concurrent notification.
- * @copyright   COPYRIGHT (C) 2018 MITSUBISHI ELECTRIC CORPORATION
- *              ALL RIGHTS RESERVED
  * @author      Zubair KK
  */
 
@@ -12,8 +10,8 @@ package com.hackathon.internetradio.internetradioclient.data;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
+import android.util.Log;
 
-import com.hackathon.internetradio.lib.commoninterface.DeviceConnectionInfo;
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
 import com.hackathon.internetradio.lib.commoninterface.browse.BrowseList;
 import com.hackathon.internetradio.lib.commoninterface.constants.Constants;
@@ -57,20 +55,19 @@ public class InternetRadioClientHandler extends Handler {
 
                     switch (message.what) {
                         case Constants.AIDL_NOTIFY_TRACK_CHANGE:
+                            Log.d("NOTIFY_track_handler", "notifyTrackChange: ");
                             internetRadioClientManager.getCallbackList().getBroadcastItem(
                                     i).notifyTrackChange((TrackInfo) message.obj);
                             break;
 
-                        /*case Constants.AIDL_NOTIFY_PLAY_STATUS:
+                        case Constants.AIDL_NOTIFY_PLAY_STATUS:
                             internetRadioClientManager.getCallbackList().getBroadcastItem(
                                     i).notifyPlayStatus(
                                     (int) message.obj);
                             break;
                         case Constants.AIDL_NOTIFY_CONNECTION_STATUS:
-                            DeviceConnectionInfo deviceConnectionInfo = (DeviceConnectionInfo)
-                                    message.obj;
                             internetRadioClientManager.getCallbackList().getBroadcastItem(
-                                    i).notifyConnectionStatus(deviceConnectionInfo);
+                                    i).notifyConnectionStatus((boolean) message.obj);
                             break;
 
                         case Constants.AIDL_NOTIFY_ERROR_STATUS:
@@ -79,10 +76,12 @@ public class InternetRadioClientHandler extends Handler {
                             break;
 
                         case Constants.AIDL_NOTIFY_CATEGORY_LIST_ITEMS:
+                            Log.d("NOTIFY_Category_handler", "notifyStationListItems: ");
                             BrowseList browseList =  (BrowseList) message.obj;
+                            Log.d("NOTIFY_Category_handler", "notifyStationListItems: " + browseList.toString());
                             internetRadioClientManager.getCallbackList().getBroadcastItem(
-                                    i).notifyCategoryListItems(browseList);
-                            break;*/
+                                    i).notifyStationListItems(browseList);
+                            break;
 
                         default:
                             break;
@@ -91,7 +90,14 @@ public class InternetRadioClientHandler extends Handler {
             } catch (RemoteException e) {
             } catch (IllegalStateException e) {
             } finally {
+                Log.d(">>>>>>", "Exception");
                 internetRadioClientManager.finishBroadcast();
+            }
+        } else {
+            if (internetRadioClientManager == null) {
+                Log.d(">>>>>>", "internetRadioClientManager is null");
+            } else {
+                Log.d(">>>>>>", "message is null");
             }
         }
     }

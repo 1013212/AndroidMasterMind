@@ -5,20 +5,17 @@
  * Reproduction or transmission in whole or in part, in any form
  * or by any means, electronic, mechanical or otherwise, is
  * prohibited without the prior written consent of the copyright owner.
- * @author	Zubair KK
+ * @author	PG
  * @version 	1.0	18.Mar.2018	Zubair KK	Initial version
  */
 
 package com.hackathon.internetradio.lib.internetradiointerface;
 
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
-import com.hackathon.internetradio.lib.commoninterface.browse.BrowseContext;
 import com.hackathon.internetradio.lib.commoninterface.browse.BrowseItem;
-import com.hackathon.internetradio.lib.commoninterface.browse.BrowseFilter;
-
 /**
  * Interface for HMI to Service API calls.BrowseFilter
- * @author	Zubair KK
+ * @author	PG
  * @version	1.0
  */
 interface IClientInterface {
@@ -27,6 +24,12 @@ interface IClientInterface {
         * Interface for getting internet radio client ready status
         */
         boolean isClientSideReady();
+
+        /**
+        * Interface for start
+        * and return void in AIDL.
+        */
+        void start();
 
         /**
          * Interface for play the song
@@ -40,6 +43,11 @@ interface IClientInterface {
          */
          void pause();
 
+        /**
+         * Interface for pause the song
+         * and return void in AIDL.
+         */
+         void connectToService();
 
          /**
          * Fetch current player status from Service and return source ID in AIDL.
@@ -74,11 +82,17 @@ interface IClientInterface {
          /**
           * Fetch the category list item.
           */
-         void getCategoryListItems(in BrowseFilter browseFilter);
+         void getStationListItems(String stationType);
 
          /**
           * Inteface to play selected browse item
           */
-         void playUsingContext(in BrowseContext browseContext);
+         void playUsingId(String id);
+
+         /**
+          * Interface for setFavorite
+          * and return void in AIDL.
+          */
+         void setFavorite(String item);
 
 }

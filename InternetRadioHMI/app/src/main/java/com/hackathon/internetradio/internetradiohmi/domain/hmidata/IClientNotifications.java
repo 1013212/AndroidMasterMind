@@ -9,7 +9,6 @@ package com.hackathon.internetradio.internetradiohmi.domain.hmidata;
 
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
 import com.hackathon.internetradio.lib.commoninterface.browse.BrowseList;
-import com.hackathon.internetradio.lib.commoninterface.DeviceConnectionInfo;
 
 /**
  * @brief  Interface for defining notification to HMI from Internet Radio Client.
@@ -32,11 +31,10 @@ public interface IClientNotifications {
 
     /**
      * @brief Default function to notify device connection.
-     * @param deviceConnectInfo : Device connection info.
+     * @param status : Device connection status.
      */
-    default void onNotifyDeviceConnection(DeviceConnectionInfo deviceConnectInfo) {
+    default void onNotifyDeviceConnection(boolean status) {
     }
-
 
     /**
      * @brief Default function to notify Error.

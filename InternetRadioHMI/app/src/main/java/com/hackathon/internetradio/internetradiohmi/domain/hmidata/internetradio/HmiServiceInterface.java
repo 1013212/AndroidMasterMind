@@ -9,8 +9,11 @@ package com.hackathon.internetradio.internetradiohmi.domain.hmidata.internetradi
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.RemoteException;
+import android.util.Log;
 
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
+import com.hackathon.internetradio.lib.commoninterface.constants.Constants;
 import com.hackathon.internetradio.lib.internetradiointerface.IClientInterface;
 
 /**
@@ -27,13 +30,15 @@ public class HmiServiceInterface {
      */
     private Handler mAsyncTaskHandler;
 
+    /**
+     * Async task handler to process hmi async requests to service
+     */
+    private Context mContext;
 
     /**
      * Boolean  is Handler thread Started or not
      */
     private boolean mHmiHandlerThreadStarted = false;
-
-
 
     /**
      * @brief HmiServiceInterface constructor
@@ -52,36 +57,145 @@ public class HmiServiceInterface {
         }
     }
 
+    /**
+     * @brief Method to set context.
+     * @param context : Object of context.
+     */
     public void setContext(Context context) {
-
+        mContext = context;
     }
 
+    /**
+     * @brief Method to get ConnectionStatus.
+     */
     public int getConnectionStatus(int source) {
-        return 0;
+        int connectionStatus = Constants.ConnectionStatus.DISCONNECTED;
+        try {
+            connectionStatus = mClientInterface.getConnectionStatus(source);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return connectionStatus;
     }
 
-    public int getCurrentPlayStatus() {
-        return 0;
+    /**
+     * @brief Method to get CurrentPlayStatus.
+     */
+    public boolean getCurrentPlayStatus() {
+        boolean playStatus = false;
+        try {
+            playStatus = mClientInterface.getCurrentPlayStatus();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return playStatus;
     }
 
+    /**
+     * @brief Method for play.
+     */
     public void play() {
+        try {
+            mClientInterface.play();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * @brief Method for pause.
+     */
     public void pause() {
+        try {
+            mClientInterface.pause();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * @brief Method for skip.
+     */
     public void skip(int direction, int skipCount) {
+        try {
+            mClientInterface.skip(direction, skipCount);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * @brief Method to get CurrentAlbumArt.
+     */
     public String getCurrentAlbumArt() {
-        return null;
+        String albumArt = null;
+        try {
+            albumArt = mClientInterface.getCurrentAlbumArt();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return albumArt;
     }
 
+    /**
+     * @brief Method fto get currentTrackInfo.
+     */
     public TrackInfo getCurrentTrackInfo() {
-        return null;
+        TrackInfo trackInfo = null;
+        try {
+            trackInfo = mClientInterface.getCurrentTrackInfo();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return trackInfo;
     }
 
+    /**
+     * @brief Method to get ErrorStatus.
+     */
     public int getErrorStatus() {
-        return 1;
+        int errorStatus = Constants.ErrorStatus.NO_ERROR;
+        try {
+            errorStatus = mClientInterface.getErrorStatus();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return errorStatus;
+    }
+
+    /**
+     * @brief Method for connectToService.
+     */
+    public void connectToService() {
+        try {
+            mClientInterface.connectToService();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @brief Method to get station ListItems.
+     */
+    public void getStationListItems(String stationType) {
+        try {
+            Log.d("PPGG", "getStationListItems: " + stationType);
+            mClientInterface.getStationListItems(stationType);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Play using media id
+     * @param mediaId
+     */
+    public void playFromMediaId(String mediaId) {
+        try {
+            Log.d("PPGG", "playFromMediaId: " + mediaId);
+            mClientInterface.playUsingId(mediaId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

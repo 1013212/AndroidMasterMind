@@ -1,9 +1,9 @@
 /**
  * @file        internetradiointerface.java
  * @brief       Interface for HMI to Service API calls.
- * @copyright   COPYRIGHT (C) 2018 MITSUBISHI ELECTRIC CORPORATION
- *              ALL RIGHTS RESERVED
- * @author      Zubair KK
+
+
+ * @author      PG
  */
 
 package com.hackathon.internetradio.internetradioclient.data.stub;
@@ -12,8 +12,6 @@ import android.os.RemoteException;
 
 import com.hackathon.internetradio.internetradioclient.data.InternetRadioClientManager;
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
-import com.hackathon.internetradio.lib.commoninterface.browse.BrowseContext;
-import com.hackathon.internetradio.lib.commoninterface.browse.BrowseFilter;
 import com.hackathon.internetradio.lib.commoninterface.constants.Constants;
 import com.hackathon.internetradio.lib.internetradiointerface.IClientInterface;
 
@@ -26,24 +24,35 @@ public class ClientInterface extends IClientInterface.Stub {
      * Member variable for keeping the instance of InternetRadioClientManager.
      */
     private final InternetRadioClientManager mInternetRadioClientManager =
-            InternetRadioClientManager.getInternetRadioClientManagerManager();
-
-
+            InternetRadioClientManager.getInternetRadioClientManager();
 
     /**
-     * @brief constructor to get context
+     * @brief default constructor
      */
-    ClientInterface() {
+    public ClientInterface() {
     }
 
+    /**
+     * @brief returns client is ready status
+     * @return boolean: ready status
+     * @throws RemoteException
+     */
 
     @Override
     public boolean isClientSideReady() throws RemoteException {
-        return false;
+        return true;
     }
 
     /**
-     * @brief API to play song from USB
+     * @brief API to start
+     */
+    @Override
+    public void start() throws RemoteException {
+        mInternetRadioClientManager.start();
+    }
+
+    /**
+     * @brief API to play
      */
     @Override
     public void play() throws RemoteException {
@@ -51,13 +60,24 @@ public class ClientInterface extends IClientInterface.Stub {
     }
 
     /**
-     * @brief API to pause current song
+     * @brief API to pause
      */
     @Override
     public void pause() throws RemoteException {
         mInternetRadioClientManager.pause();
     }
 
+    /**
+     * @brief API to connect service
+     */
+    @Override
+    public void connectToService() throws RemoteException {
+        mInternetRadioClientManager.connectToService();
+    }
+
+    /**
+     * @brief API to skip
+     */
     @Override
     public void skip(int direction, int skipCount) throws RemoteException {
         mInternetRadioClientManager.skip(direction, skipCount);
@@ -101,22 +121,31 @@ public class ClientInterface extends IClientInterface.Stub {
 
     /**
      * @brief Function is to get category list item
-     * @param browseFilter : Filter for browse list
      * @throws RemoteException : remote exception
      */
     @Override
-    public void getCategoryListItems(BrowseFilter browseFilter) throws RemoteException {
-        mInternetRadioClientManager.getCategoryListItems(browseFilter);
+    public void getStationListItems(String stationType) throws RemoteException {
+        mInternetRadioClientManager.getStationListItems(stationType);
     }
 
     /**
      * @brief Function is to play browse context song
-     * @param browseContext : Object containing detail of selected browse item
+     * @param id : Object containing detail of selected browse item
      * @throws RemoteException : remote exception
      */
     @Override
-    public void playUsingContext(BrowseContext browseContext) throws RemoteException {
-        mInternetRadioClientManager.playUsingContext(browseContext);
+    public void playUsingId(String id) throws RemoteException {
+        mInternetRadioClientManager.playUsingId(id);
+    }
+
+    /**
+     * @brief Function is to set favourites
+     * @param item : selected item
+     * @throws RemoteException : remote exception
+     */
+    @Override
+    public void setFavorite(String item) throws RemoteException {
+        mInternetRadioClientManager.setFavorite(item);
     }
 
 

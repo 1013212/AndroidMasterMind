@@ -40,23 +40,16 @@ public class BrowseItem implements Parcelable {
     /**
      * Variable to store browse item name.
      */
-    private String mItemName;
-
-    /**
-     * Variable to store browse item type.
-     */
-    private int mItemType;
+    private String mTitle;
 
     /**
      * @brief Constructor for this class
      * @param id : Value of item id
-     * @param itemName : Value of item name
-     * @param itemType : Value of item type
+     * @param title : Value of item name
      */
-    public BrowseItem(String id, String itemName, int itemType) {
+    public BrowseItem(String id, String title) {
         mId = id;
-        mItemName = itemName;
-        mItemType = itemType;
+        mTitle = title;
     }
 
     /**
@@ -87,8 +80,7 @@ public class BrowseItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mId);
-        dest.writeString(mItemName);
-        dest.writeInt(mItemType);
+        dest.writeString(mTitle);
     }
 
     /**
@@ -98,8 +90,7 @@ public class BrowseItem implements Parcelable {
     public void readFromParcel(Parcel in) {
         if (in != null) {
             mId = in.readString();
-            mItemName = in.readString();
-            mItemType = in.readInt();
+            mTitle = in.readString();
         }
     }
 
@@ -124,31 +115,15 @@ public class BrowseItem implements Parcelable {
      * @return String : Value of item name
      */
     public String getItemName() {
-        return mItemName;
+        return mTitle;
     }
 
     /**
      * @brief Method to set item name
-     * @param itemName : Value of item name
+     * @param title : Value of item name
      */
-    public void setItemName(String itemName) {
-        mItemName = itemName;
-    }
-
-    /**
-     * @brief Method to get item type
-     * @return int : Value of item type
-     */
-    public int getItemType() {
-        return mItemType;
-    }
-
-    /**
-     * @brief Method to set item type
-     * @param itemType : Value of item type
-     */
-    public void setItemType(int itemType) {
-        mItemType = itemType;
+    public void setItemName(String title) {
+        mTitle = title;
     }
 
     /**
@@ -159,8 +134,7 @@ public class BrowseItem implements Parcelable {
     public String toString() {
         return "BrowseItem{"
                 + "mId=" + mId
-                + ", mItemName='" + mItemName + '\''
-                + ", mItemType=" + mItemType
+                + ", mTitle='" + mTitle + '\''
                 + '}';
     }
 }

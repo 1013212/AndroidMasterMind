@@ -31,5 +31,9 @@ public final class HmiConstants {
         int AIDL_NOTIFY_PLAY_STATUS                                     = 0;
         int AIDL_NOTIFY_DEVICE_CONNECT                                  = 1;
         int AIDL_NOTIFY_FILE_ERROR                                      = 2;
+        int AIDL_NOTIFY_TRACK_CHANGE                                    = 3;
+        int AIDL_NOTIFY_CATEGORY_LIST_ITEMS                             = 4;
+        int AIDL_NOTIFY_TRACK_STATUS                                    = 5;
+        int AIDL_NOTIFY_READY_STATUS                                    = 6;
     }
 }

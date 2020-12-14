@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">InternetRadio</string>
+    <string name="all_songs">ALL SONGS</string>
+    <string name="favorite">FAVORITE</string>
+    <string name="live">LIVE</string>
+    <string name="start">START</string>
+    <string name="internet_radio">INTERNET RADIO</string>
 </resources>

@@ -1,25 +1,25 @@
 /**
  * @file        InternetRadioClientManager.java
- * @brief       Media Service manager is common gateway between all
- *              media sources and Media Service.
- * @copyright   COPYRIGHT (C) 2018 MITSUBISHI ELECTRIC CORPORATION
- *              ALL RIGHTS RESERVED
- * @author      Zubair KK
+ * @brief       InternetRadioClientManager is common gateway.
+ * @author      PG
  */
 
 package com.hackathon.internetradio.internetradioclient.data;
 
 import android.content.Context;
 import android.os.RemoteCallbackList;
-import android.view.Gravity;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.hackathon.internetradio.internetradioclient.data.utils.IServiceConnection;
 import com.hackathon.internetradio.internetradioclient.data.utils.SourceNotifications;
+import com.hackathon.internetradio.internetradioclient.internetradiobrowserclient.InternetRadioServiceClient;
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
-import com.hackathon.internetradio.lib.commoninterface.browse.BrowseContext;
-import com.hackathon.internetradio.lib.commoninterface.browse.BrowseFilter;
+import com.hackathon.internetradio.lib.commoninterface.browse.BrowseItem;
+import com.hackathon.internetradio.lib.commoninterface.browse.BrowseList;
+import com.hackathon.internetradio.lib.commoninterface.constants.Constants;
 import com.hackathon.internetradio.lib.internetradiointerface.IClientListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @brief InternetRadioClientManager class contains the implementations for the different media
@@ -28,15 +28,14 @@ import com.hackathon.internetradio.lib.internetradiointerface.IClientListener;
 public class InternetRadioClientManager {
 
     /**
-     * Member variable for keeping the instance of InternetRadioClientManager
+     * TAG
      */
-    private static final InternetRadioClientManager MEDIA_SERVICE_MANAGER = new InternetRadioClientManager();
-
+    private static final String TAG = InternetRadioClientManager.class.getSimpleName();
 
     /**
-     * Member variable for keeping the instance of ISourceBase
+     * Member variable for keeping the instance of InternetRadioClientManager
      */
-    private ISourceBase mSourceManager;
+    private static final InternetRadioClientManager RADIO_CLIENT_MANAGER = new InternetRadioClientManager();
 
     /**
      * Member variable for keeping the broadcast connection status
@@ -57,61 +56,65 @@ public class InternetRadioClientManager {
      * Member variable for keeping the instance of Context
      */
     private Context mContext;
+
+    /**
+     * Variable to store list of browse item.
+     */
+    private List<BrowseItem> mBrowseItemList = new ArrayList<>();
+
+    /**
+     * Variable to store list of browse item.
+     */
+    private List<BrowseItem> mFavItemList = new ArrayList<>();
+
+    /**
+     * Variable to store list of browse item.
+     */
+    private List<TrackInfo> mTrackInfoListList = new ArrayList<>();
+
+    /**
+     * Variable to store list of browse item.
+     */
+    private TrackInfo mTrackInfo = null;
+
+
+    /**
+     * Member variable for keeping the instance of InternetRadioServiceClient.
+     */
+    private InternetRadioServiceClient mInternetRadioServiceClient = InternetRadioServiceClient.getInstance();
+
+
     /**
      * Member variable for keeping callback listeners
      */
     private final RemoteCallbackList<IClientListener> mCallbackList = new RemoteCallbackList<>();
 
     /**
-     * Member variable to handle the service connected call back.
-     */
-    private IServiceConnection mServiceConnection = new IServiceConnection() {
-        /**
-         * @param serviceType : int
-         * @brief Callback method to handle service initialization.
-         */
-        @Override
-        public void onServiceInitialized(String serviceType) {
-            synchronized (this) {
-
-                if (mSourceNotifications != null) {
-                    mSourceNotifications.notifyServiceReady(true);
-                }
-
-            }
-        }
-        /**
-         * @param serviceType : int
-         * @brief Callback method to handle service destroy.
-         */
-        @Override
-        public void onServiceDeinitialized(String serviceType) {
-        }
-    };
-
-    /**
      * @brief Private constructor to make class singleton
      */
     private InternetRadioClientManager() {
+
     }
 
     /**
      * @brief Method to return object for singleton class
      * @return InternetRadioClientManager : InternetRadioClientManager object
      */
-    public static InternetRadioClientManager getInternetRadioClientManagerManager() {
-        return MEDIA_SERVICE_MANAGER;
+    public static InternetRadioClientManager getInternetRadioClientManager() {
+        return RADIO_CLIENT_MANAGER;
     }
 
 
 
     /**
      * @brief This method does initialisation logic for {@link InternetRadioClientManager}
-     * @param context : application context
      */
-    public void init(Context context) {
-        mContext = context;
+    public void init() {
+        //mContext = context;
         mSourceNotifications = new SourceNotifications();
+        mTrackInfo = null;
+        //createDummyStationData();
+        //createDummyMetadataData();
 
     }
 
@@ -142,7 +145,7 @@ public class InternetRadioClientManager {
      * @return int : connection status
      */
     public int getConnectionStatus(int sourceType) {
-        int connectionStatus = 0;
+        int connectionStatus = Constants.ConnectionStatus.CONNECTED;
         return connectionStatus;
     }
 
@@ -151,10 +154,8 @@ public class InternetRadioClientManager {
      * @return boolean : Current play status
      */
     public boolean getPlayStatus() {
-        return mSourceManager.getPlayStatus();
+        return true;
     }
-
-
 
     /**
      * @brief Function to skip current song to next or previous.
@@ -162,21 +163,21 @@ public class InternetRadioClientManager {
      * @param skipCount : skip count
      */
     public void skip(int direction, int skipCount) {
-        mSourceManager.skip(direction, skipCount);
+        if (direction == Constants.SkipDirection.NEXT) {
+            mInternetRadioServiceClient.skip(Constants.SkipDirection.NEXT);
+        } else {
+            mInternetRadioServiceClient.skip(Constants.SkipDirection.PREV);
+        }
+
     }
-
-
 
     /**
      * @brief Function to get current playing track info.
      * @return trackInfo : current playing track info
      */
     public TrackInfo getCurrentTrackInfo() {
-        TrackInfo trackInfo = mSourceManager.getCurrentTrackInfo();
-        return trackInfo;
+        return mTrackInfo;
     }
-
-
 
     /**
      * @brief This function returns HMI callback list
@@ -191,7 +192,11 @@ public class InternetRadioClientManager {
      * @return String : Album art path
      */
     public String getCurrentAlbumArt() {
-        return mSourceManager.getCurrentAlbumArt();
+        String coverArt = null;
+        if (mTrackInfo!= null) {
+            coverArt = mTrackInfo.getCoverArt();
+        }
+        return coverArt;
     }
 
     /**
@@ -199,108 +204,43 @@ public class InternetRadioClientManager {
      * @return int : Current current error status
      */
     public int getErrorStatus() {
-        return mSourceManager.getErrorStatus();
-    }
-
-    /**
-     * @brief Function to get favorites from Personal Account
-     * @return int[] : Array of source IDs of favorite sources
-     */
-    public int[] getFavoriteSources() {
-        return null;
-    }
-
-    /**
-     * @brief Function to set favorites to Personal Account
-     * @param favorites :  Array of source IDs of favorite sources
-     */
-    public void setFavoriteSources(int[] favorites) {
-
-    }
-
-    /**
-     * @brief Function to get browse list size
-     * @param browseContext : Object containing detail of selected browse item
-     * @return int : Size of browse list
-     */
-    public int getCategoryListSize(BrowseContext browseContext) {
-        return 0;
-    }
-
-
-
-    /**
-     * @brief Function to get current track list size
-     * @return int : Size of current track list
-     */
-    public int getCurrentTrackListSize() {
-
-        return 0;
+        return Constants.ErrorStatus.NO_ERROR;
     }
 
     /**
      * @brief This function is to get category list item
-     * @param browseFilter : Filter for browse list
      */
-    public void getCategoryListItems(BrowseFilter browseFilter) {
-
-    }
-
-
-    /**
-     * @brief This function is to get current track list
-     * @param startIndex : start index of  current track list
-     * @param count : count of current track list
-     */
-    public void getCurrentTrackListItems(int startIndex, int count) {
-
+    public void getStationListItems(String stationType) {
+        mInternetRadioServiceClient.browse(stationType);
     }
 
     /**
      * @brief This function is to play browse context song
-     * @param itemContext : Object containing detail of selected browse item
+     * @param id : Object containing detail of selected browse item
      */
-    public void playUsingContext(BrowseContext itemContext) {
-
+    public void playUsingId(String id) {
+        Log.d("PPGG_Client", "playUsingId: " + id);
+        mInternetRadioServiceClient.playFromMediaId(id);
     }
 
+    /**
+     * @brief This function is to pause current source
+     */
+    public void start() {
+    }
 
     /**
      * @brief This function is to play current sources
      */
     public void play() {
-        Toast toast = Toast.makeText(mContext, "message", Toast.LENGTH_SHORT);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setText("Connected to service");
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-        mSourceManager.play();
+        mInternetRadioServiceClient.play();
     }
-
-
 
     /**
      * @brief This function is to pause current source
      */
     public void pause() {
-        mSourceManager.pause();
-    }
-
-
-    /**
-     * @brief This function is to skip next if source is Projection
-     * @param pressStatus status from HMI notifying press / release
-     */
-    public void next(int pressStatus) {
-        mSourceManager.next(pressStatus);
-    }
-
-    /**
-     * @brief This function is to skip previous if source is Projection
-     * @param pressStatus status from HMI notifying press / release
-     */
-    public void previous(int pressStatus) {
-        mSourceManager.previous(pressStatus);
+        mInternetRadioServiceClient.pause();;
     }
 
     /**
@@ -309,7 +249,6 @@ public class InternetRadioClientManager {
      */
     int beginBroadcast() {
         if (!mBroadCastConnection) {
-
             mBroadCastConnection = true;
             mBroadCastCount = mCallbackList.beginBroadcast();
         }
@@ -326,4 +265,81 @@ public class InternetRadioClientManager {
         }
     }
 
+    /**
+     * @brief Function to  be called on finish broadcast.
+     * @param item : favourite item
+     */
+    public void setFavorite(String item) {
+        for (int i=0; i<mBrowseItemList.size(); i++) {
+            if (mBrowseItemList.get(i).getId().equals(item)) {
+                mFavItemList.add(mBrowseItemList.get(i));
+                break;
+            }
+        }
+    }
+
+    /**
+     * @brief Function to  connect to service.
+     */
+    public void connectToService() {
+        Log.d(TAG, ">>>>>>>connectToService entry");
+        //mInternetRadioServiceClient.connectToInternetRadioMediaBrowserService(mContext);
+        Log.d(TAG, ">>>>>>>connectToService exit");
+    }
+
+    private void createDummyStationData() {
+        BrowseItem station1 = new BrowseItem("http://somafm.com/bagel.pls", "Back To Basics");
+        BrowseItem station2 = new BrowseItem("http://somafm.com/bootliquor.pls", "American Roots");
+        BrowseItem station3 = new BrowseItem("http://somafm.com/thistle.pls", "Celtic");
+        BrowseItem station4 = new BrowseItem("http://somafm.com/startstream=groovesalad.pls", "Chillout");
+        BrowseItem station5 = new BrowseItem("http://www.slayradio.org/tune_in.php/128kbps/listen.m3u", "Blue Ruby");
+        mBrowseItemList.add(station1);
+        mBrowseItemList.add(station2);
+        mBrowseItemList.add(station3);
+        mBrowseItemList.add(station4);
+        mBrowseItemList.add(station5);
+    }
+
+    private void createDummyMetadataData() {
+        TrackInfo metadata1 = new TrackInfo("http://somafm.com/bagel.pls",
+                "Back To Basics",
+                "Rick Astley",
+                "Sound Of Summer",
+                "Jazz",
+                "bagel.mp3",
+                "album_art_1");
+        TrackInfo metadata2 = new TrackInfo("http://somafm.com/bootliquor.pls",
+                "American Roots",
+                "The 126ers",
+                "Boot Liquor",
+                "Rock",
+                "american_roots.mp3",
+                "album_art_2");
+        TrackInfo metadata3 = new TrackInfo("http://somafm.com/thistle.pls",
+                "Celtic",
+                "Beach Boys",
+                "Bad Blood",
+                "Rock",
+                "celtic.mp3",
+                "album_art_3");
+        TrackInfo metadata4 = new TrackInfo("http://somafm.com/startstream=groovesalad.pls",
+                "Chillout",
+                "B.o.B",
+                "Groove Salad",
+                "Pop",
+                "chillout.mp3",
+                "album_art_4");
+        TrackInfo metadata5 = new TrackInfo("http://www.slayradio.org/tune_in.php/128kbps/listen.m3u",
+                "Blue Ruby",
+                "Commodore Clause",
+                "Commodore 64 Remixes",
+                "Blues",
+                "blue_ruby.mp3",
+                "album_art_5");
+        mTrackInfoListList.add(metadata1);
+        mTrackInfoListList.add(metadata2);
+        mTrackInfoListList.add(metadata3);
+        mTrackInfoListList.add(metadata4);
+        mTrackInfoListList.add(metadata5);
+    }
 }

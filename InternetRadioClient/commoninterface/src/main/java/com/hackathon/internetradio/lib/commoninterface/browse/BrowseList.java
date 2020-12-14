@@ -103,6 +103,7 @@ public class BrowseList implements Parcelable {
             mListType = in.readInt();
             mCategoryType = in.readInt();
             mBrowseItemList = in.createTypedArrayList(BrowseItem.CREATOR);
+        } else {
         }
     }
 

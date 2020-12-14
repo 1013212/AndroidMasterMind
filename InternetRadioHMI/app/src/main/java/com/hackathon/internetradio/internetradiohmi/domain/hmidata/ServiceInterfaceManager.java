@@ -55,8 +55,6 @@ public class ServiceInterfaceManager {
      */
     private HmiServiceInterface mHmiServiceInterface = null;
 
-
-
     /**
      * Variable to store object of ServiceEventManager.
      */
@@ -67,21 +65,15 @@ public class ServiceInterfaceManager {
      */
     private ServiceEventListener mServiceEventListener = null;
 
-
-
     /**
      * Variable to store object of ServiceEventHandler.
      */
     private ServiceEventHandler mServiceEventHandler = null;
 
-
     /**
      * Application Context.
      */
     private Context mContext;
-
-
-
 
     /**
      * Variable to store the object of LogUtility.
@@ -101,15 +93,10 @@ public class ServiceInterfaceManager {
         public void onServiceConnected(ComponentName name, IBinder service) {
             mClientCallback = IClientCallback.Stub.asInterface(service);
             try {
-                Toast toast = Toast.makeText(mContext, "message", Toast.LENGTH_SHORT);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setText("Connected to service");
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-
                 mClientListener = mServiceEventListener.getClientListener();
                 mClientCallback.registerAsyncConnection(mClientListener);
                 mHmiServiceInterface.initialize(mClientCallback.getSyncConnection());
+                mHmiServiceInterface.playFromMediaId("start_playback");
 
             } catch (RemoteException e) {
             }
@@ -122,11 +109,14 @@ public class ServiceInterfaceManager {
          */
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            Toast toast = Toast.makeText(mContext, "message", Toast.LENGTH_SHORT);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setText(">>>>Disconnected from service");
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
 
         }
     };
-
-
 
     /**
      * Member variable for keeping the instance of BroadcastReceiver.
@@ -142,8 +132,6 @@ public class ServiceInterfaceManager {
         mServiceEventHandler = new ServiceEventHandler(mServiceEventManager);
         mServiceEventListener = new ServiceEventListener(mServiceEventHandler);
     }
-
-
 
     /**
      * @brief  Method to get the singleton instance of service interface class.
@@ -163,7 +151,6 @@ public class ServiceInterfaceManager {
         return result;
     }
 
-
     /**
      * @brief  Method for getServiceEventManager.
      * @return ServiceEventManager : Service event manager instance.
@@ -180,7 +167,6 @@ public class ServiceInterfaceManager {
         return mHmiServiceInterface;
     }
 
-
     /**
      * @brief Method to bind internet radio client.
      * @param context : context object.
@@ -193,8 +179,6 @@ public class ServiceInterfaceManager {
         bindToInternetRadioClient();
     }
 
-
-
     /**
      * @brief Method to unbind internet radio client.
      */
@@ -203,8 +187,6 @@ public class ServiceInterfaceManager {
             mContext.unbindService(mHmiSyncConnection);
         }
     }
-
-
 
     /**
      * @brief Method to bind internet radio client.
@@ -215,15 +197,13 @@ public class ServiceInterfaceManager {
             intentToClient.setClassName(HmiConstants.TAG_INTERNET_RADIO_CLIENT_PACKAGE_NAME,
                     HmiConstants.TAG_INTERNET_RADIO_CLIENT_CLASS_NAME);
             try {
-                mContext.startForegroundService(intentToClient);
+                //mContext.startForegroundService(intentToClient);
                 mContext.bindService(intentToClient, mHmiSyncConnection, Context.BIND_AUTO_CREATE);
             } catch (SecurityException e) {
                 mContext.startForegroundService(intentToClient);
             }
         }
     }
-
-
 
     /**
      * @brief  Method to get service handler.

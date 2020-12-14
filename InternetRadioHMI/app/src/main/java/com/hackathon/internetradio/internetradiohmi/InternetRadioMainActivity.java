@@ -5,13 +5,13 @@
  */
 
 package com.hackathon.internetradio.internetradiohmi;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.hackathon.internetradio.internetradiohmi.domain.hmidata.ServiceInterfaceManager;
-
 
 /**
  * @brief Implementation for InternetRadioMainActivity class.
@@ -39,11 +39,11 @@ public class InternetRadioMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPlayButton =  findViewById(R.id.btn_radio_play);
-        mPauseButton = findViewById(R.id.btn_radio_pause);
+        /*mPlayButton =  findViewById(R.id.btn_radio_play);
+        mPauseButton = findViewById(R.id.btn_radio_pause);*/
         mPlayButton.setEnabled(true);
         mPauseButton.setEnabled(true);
-        mServiceInterfaceManager.bindService(getBaseContext().getApplicationContext());
+        //mServiceInterfaceManager.bindService(getBaseContext().getApplicationContext());
 
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override

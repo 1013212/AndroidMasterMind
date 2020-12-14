@@ -1,14 +1,13 @@
 /**
  * @file        ISourceNotifications.java
  * @brief       Interface for passing notification to Media Service Manager class.
- * @copyright   COPYRIGHT (C) 2018 MITSUBISHI ELECTRIC CORPORATION
- *              ALL RIGHTS RESERVED
+
+
  * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.internetradioclient.data.utils;
 
-import com.hackathon.internetradio.lib.commoninterface.DeviceConnectionInfo;
 import com.hackathon.internetradio.lib.commoninterface.TrackInfo;
 import com.hackathon.internetradio.lib.commoninterface.browse.BrowseList;
 
@@ -31,9 +30,9 @@ public interface ISourceNotifications {
 
     /**
      * @brief Function to notify device connection with HMI apps
-     * @param deviceConnectInfo : device connection info
+     * @param status : device connection info
      */
-    void notifyDeviceConnection(DeviceConnectionInfo deviceConnectInfo);
+    void notifyDeviceConnection(boolean status);
 
     /**
      * @brief Function to notify error with HMI apps
@@ -45,7 +44,7 @@ public interface ISourceNotifications {
      * @brief Function notifies category lists items
      * @param browseList : Browse list items
      */
-    void notifyCategoryListItems(BrowseList browseList);
+    void notifyStationListItems(BrowseList browseList);
 
 
 

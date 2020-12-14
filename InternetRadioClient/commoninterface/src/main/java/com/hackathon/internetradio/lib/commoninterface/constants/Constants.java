@@ -1,15 +1,8 @@
 /**
  * @file        Constants.java
- * @brief       This class is for saving constants common to Service and HMI apps accessing this
- *              service.
-
- *
- * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.lib.commoninterface.constants;
-
-import android.os.Environment;
 
 /**
  * @brief This class is for saving constants common to Service and HMI apps accessing this service.
@@ -17,14 +10,13 @@ import android.os.Environment;
 public final class Constants {
     public static final String TAG = "InternetRadioClient";
     public static final int AIDL_NOTIFY_TRACK_CHANGE = 1;
+    public static final int AIDL_NOTIFY_PLAY_STATUS = 2;
+    public static final int AIDL_NOTIFY_CONNECTION_STATUS = 3;
+    public static final int AIDL_NOTIFY_CATEGORY_LIST_ITEMS = 4;
+    public static final int AIDL_NOTIFY_ERROR_STATUS = 5;
+    public static final int AIDL_NOTIFY_CATEGORY_LIST_ITEMS1 = 6;
+    public static final int AIDL_NOTIFY_CATEGORY_LIST_ITEMS2 = 7;
 
-    public static final int INVALID_VALUE = -1;
-    public static final String DEFAULT_INVALID_VALUE = "-1";
-
-    public static final String DEFAULT_DEVICE_NAME = "unknown";
-
-    public static final String DEFAULT_SERIAL_NUMBER = "";
-    public static final String EMPTY_STRING = "";
     /**
      * Constant for keeping boolean false
      */
@@ -36,32 +28,37 @@ public final class Constants {
         int NOT_SUPPORTED = -1;
         int NOT_AVAILABLE = -2;
     }
-    public @interface DeviceType {
-        int NONE = 0;
+
+
+    /**
+     * All play status type constants will be added here
+     */
+    public @interface PlayStatus {
+        int PLAY = 1;
+        int PAUSE = 0;
     }
 
-    public @interface BrowseCategory {
-        int BROWSE_DEFAULT = -1;
-        int BROWSE_TRACKS = 0;
-        int BROWSE_ARTIST = 1;
-        int BROWSE_ALBUM = 2;
-        int BROWSE_BTA_FOLDER = 3;
-        int BROWSE_GENRE = 4;
-        int BROWSE_PLAYLIST = 5;
-        int BROWSE_SONGS = 6;
-        int BROWSE_PODCAST = 7;
-        int BROWSE_AUDIOBOOK = 8;
-        int BROWSE_FOLDER = 9;
-        int BROWSE_FOLDER_SONG = 10;
-        int BROWSE_COMPOSER = 11;
-        int BROWSE_MUSICRADIO = 12;
-        int BROWSE_BTA_LEVEL = 13;
-        int BROWSE_MTP_CHAR_SEARCH = 14;
+    /**
+     * All play status type constants will be added here
+     */
+    public @interface StationType {
+        String ALL_STATIONS = "MUSIC";
+        String FAVOURITE_STATIONS = "FAVORITES";
+        String LIVE_STATIONS = "LIVE";
     }
 
-    public @interface BrowseListType {
-        int BROWSE_ORDER_SORTED = 0;
-        int BROWSE_ORDER_NOT_SORTED = 1;
-        int BROWSE_SEARCH = 2;
+    /**
+     * All skip direction constants will be added here
+     */
+    public @interface SkipDirection {
+        int NEXT = 1;
+        int PREV = 2;
+    }
+
+    /**
+     * All error type constants will be added here
+     */
+    public @interface ErrorStatus {
+        int NO_ERROR = -1;
     }
 }

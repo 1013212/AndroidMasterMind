@@ -13,7 +13,7 @@
         android:supportsRtl="false"
         android:exported="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InternetRadioMainActivity"
+        <activity android:name=".SplashScreen"
             android:configChanges="layoutDirection|locale|orientation"
             android:launchMode="singleTop"
             android:exported="true"
@@ -23,5 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainTabActivity"/>
+        <activity android:name=".MainListActivity"/>
+        <activity android:name=".StartActivity"/>
     </application>
 </manifest>

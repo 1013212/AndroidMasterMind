@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">InternetRadioPlayerService</string>
+    <string name="radio_url">http://216.55.141.189:8653/live</string>
+    <string name="radio_url1">http://64.150.176.9:8272/live</string>
+    <string name="radio_url2">http://205.164.62.22:8075</string>
+    <string name="radio_url3">http://64.150.176.9:8272/live</string>
+    <string name="radio_url5">http://205.164.62.22:8075</string>
+    <string name="radio_url4">http://184.154.43.106:8145</string>
+
+    <string name="no_stream">Radio station couldn\'t stream!</string>
+    <string name="live_broadcast">You are Listning Swadesh FM</string>
+</resources>

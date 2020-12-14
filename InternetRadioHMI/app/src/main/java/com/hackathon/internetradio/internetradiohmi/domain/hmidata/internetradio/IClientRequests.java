@@ -28,12 +28,10 @@ public interface IClientRequests {
      * @brief Default method to get play status from service
      * @return int : Play status.
      */
-    default int getCurrentPlayStatus() {
+    default boolean getCurrentPlayStatus() {
         return ServiceInterfaceManager.getInstance().getHmiServiceInterface()
                 .getCurrentPlayStatus();
     }
-
-
 
     /**
      * @brief Default method to request play
@@ -43,8 +41,6 @@ public interface IClientRequests {
                 .play();
     }
 
-
-
     /**
      * @brief Default method to request pause
      */
@@ -52,8 +48,6 @@ public interface IClientRequests {
         ServiceInterfaceManager.getInstance().getHmiServiceInterface()
                 .pause();
     }
-
-
 
     /**
      * @brief Default method to request skip
@@ -64,7 +58,6 @@ public interface IClientRequests {
         ServiceInterfaceManager.getInstance().getHmiServiceInterface()
                 .skip(direction, skipCount);
     }
-
 
     /**
      * @brief Default method to get the Album art path.
@@ -91,5 +84,14 @@ public interface IClientRequests {
     default int getErrorStatus() {
         return ServiceInterfaceManager.getInstance().getHmiServiceInterface()
                 .getErrorStatus();
+    }
+
+    /**
+     * @brief Default method to get station list items.
+     * @return int : errorStatus
+     */
+    default void getStationListItems(String type) {
+        ServiceInterfaceManager.getInstance().getHmiServiceInterface()
+                .getStationListItems(type);
     }
 }

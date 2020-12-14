@@ -2,8 +2,8 @@
  * @file        InternetRadioClient.java
  * @brief       Media Service Base class. HMI apps can bind to
  *              this class with AIDL interfaces and make communication.
- * @copyright   COPYRIGHT (C) 2018 MITSUBISHI ELECTRIC CORPORATION
- *              ALL RIGHTS RESERVED
+
+
  * @author      Zubair KK
  */
 
@@ -13,13 +13,18 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import com.hackathon.internetradio.internetradioclient.data.InternetRadioClientManager;
 import com.hackathon.internetradio.internetradioclient.data.stub.ClientCallback;
+import com.hackathon.internetradio.internetradioclient.internetradiobrowserclient.InternetRadioServiceClient;
 
 /**
  * @brief Media Service Base cl`ass. HMI apps can bind to
  *        this class with AIDL interfaces and make communication.
  */
 public class InternetRadioClient extends Service {
+
+    private final InternetRadioClientManager mInternetRadioClientManager =
+            InternetRadioClientManager.getInternetRadioClientManager();
 
     /**
      * @brief Default constructor
@@ -35,6 +40,9 @@ public class InternetRadioClient extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mInternetRadioClientManager.init();
+        InternetRadioServiceClient.getInstance().
+                connectToInternetRadioMediaBrowserService(getApplication().getApplicationContext());
     }
 
     /**
@@ -48,7 +56,7 @@ public class InternetRadioClient extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Service is restarted if it gets terminated.
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     /**
