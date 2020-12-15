@@ -1,8 +1,5 @@
 /**
  * @file        ServiceEventManager.java
- * @brief       This class keep the data received from Internet Radio Client and provides the observables
- *              to the listeners of the service data.
- * @author      Praveen
  */
 
 package com.hackathon.internetradio.internetradiohmi.domain.hmidata;

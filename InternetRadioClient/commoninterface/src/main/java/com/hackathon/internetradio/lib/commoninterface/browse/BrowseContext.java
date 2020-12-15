@@ -1,9 +1,5 @@
 /**
  * @file        BrowseContext.java
- * @brief       Class for browse context
-
- *
- * @author      Austin Renitz C
  */
 
 package com.hackathon.internetradio.lib.commoninterface.browse;
@@ -64,10 +60,10 @@ public class BrowseContext implements Parcelable {
      * @brief Default constructor for this class
      */
     public BrowseContext() {
-        mCategoryType = Constants.BrowseCategory.BROWSE_FOLDER_SONG;
-        mItemId = Constants.DEFAULT_INVALID_VALUE;
-        mListType = Constants.BrowseListType.BROWSE_ORDER_NOT_SORTED;
-        mBrowsingType = Constants.INVALID_VALUE;
+        mCategoryType = 0;
+        mItemId = "";
+        mListType = 0;
+        mBrowsingType = 0;
     }
 
     /**
@@ -81,7 +77,7 @@ public class BrowseContext implements Parcelable {
         mItemId = songId;
         mListType = listType;
         mIsTrackList = Constants.CONST_FALSE;
-        mBrowsingType = Constants.INVALID_VALUE;
+        mBrowsingType = 0;
     }
 
     /**

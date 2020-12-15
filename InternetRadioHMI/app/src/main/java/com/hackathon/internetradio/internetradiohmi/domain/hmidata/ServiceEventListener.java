@@ -1,9 +1,5 @@
 /**
  * @file      ServiceEventListener.java
- * @brief     This file contains the internet radio client event listener implementation
-
- *
- * @author    Praveen
  */
 
 package com.hackathon.internetradio.internetradiohmi.domain.hmidata;

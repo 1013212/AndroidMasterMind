@@ -1,9 +1,5 @@
 /**
  * @file        HmiConstants.java
- * @brief       This file contains the constants used for hmi
-
- *
- * @author      Praveen
  */
 
 package com.hackathon.internetradio.internetradiohmi.utilities;

@@ -1,10 +1,5 @@
 /**
  * @file        ClientCallback.java
- * @brief       This class is a stub implementation for
- *              {@link com.hackathon.internetradio.internetradioclient.InternetRadioClient}. bind AIDL.
-
-
- * @author      PG
  */
 
 package com.hackathon.internetradio.internetradioclient.data.stub;

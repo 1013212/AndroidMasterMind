@@ -1,9 +1,5 @@
 /**
  * @file        BrowseItem.java
- * @brief       Class for browse item
-
- *
- * @author      Austin Renitz C
  */
 
 package com.hackathon.internetradio.lib.commoninterface.browse;

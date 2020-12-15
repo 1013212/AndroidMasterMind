@@ -1,9 +1,5 @@
 /**
  * @file        MetaData.java
- * @brief       This class is responsible for handling bluetooth call-backs
-
- *
- * @author      Lincy Babu
  */
 
 package com.hackathon.internetradio.lib.commoninterface;

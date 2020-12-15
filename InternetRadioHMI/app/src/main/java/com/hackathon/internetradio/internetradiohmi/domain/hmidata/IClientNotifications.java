@@ -1,7 +1,5 @@
 /**
  * @file        IClientNotifications.java
- * @brief       Interface for defining notification to HMI from internet radio client.
- * @author      Praveen
  */
 
 package com.hackathon.internetradio.internetradiohmi.domain.hmidata;

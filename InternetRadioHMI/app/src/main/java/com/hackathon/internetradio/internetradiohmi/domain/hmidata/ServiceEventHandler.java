@@ -1,9 +1,5 @@
 /**
  * @file        ServiceEventHandler.java
- * @brief       This file contains implementation of ServiceEventHandler class
-
- *
- * @author      Praveen
  */
 
 package com.hackathon.internetradio.internetradiohmi.domain.hmidata;

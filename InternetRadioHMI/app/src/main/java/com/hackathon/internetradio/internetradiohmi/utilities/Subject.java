@@ -1,9 +1,5 @@
 /**
  * @file        Subject.java
- * @brief       This file contains implementation of Subject
-
- *
- * @author      Praveen
  */
 
 package com.hackathon.internetradio.internetradiohmi.utilities;

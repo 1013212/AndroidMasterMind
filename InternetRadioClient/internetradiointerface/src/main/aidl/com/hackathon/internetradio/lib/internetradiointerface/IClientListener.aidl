@@ -1,7 +1,5 @@
 /**
  * @file        IClientListener.aidl
- * @brief       Interface through which Service notify the bind HMI apps.
- * @author	    PG
  */
 
 package com.hackathon.internetradio.lib.internetradiointerface;

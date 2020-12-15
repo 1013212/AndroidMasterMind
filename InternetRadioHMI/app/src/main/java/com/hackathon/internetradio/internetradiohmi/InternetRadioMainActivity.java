@@ -1,7 +1,5 @@
 /**
  * @file        InternetRadioMainActivity.java
- * @brief       InternetRadioMainActivity class act as the base activity
- * @author      Praveen
  */
 
 package com.hackathon.internetradio.internetradiohmi;

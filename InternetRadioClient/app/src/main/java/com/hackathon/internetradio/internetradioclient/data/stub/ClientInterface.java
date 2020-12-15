@@ -1,9 +1,5 @@
 /**
- * @file        internetradiointerface.java
- * @brief       Interface for HMI to Service API calls.
-
-
- * @author      PG
+ * @file        ClientInterface.java.java
  */
 
 package com.hackathon.internetradio.internetradioclient.data.stub;

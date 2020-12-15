@@ -1,10 +1,5 @@
 /**
  * @file        InternetRadioClient.java
- * @brief       Media Service Base class. HMI apps can bind to
- *              this class with AIDL interfaces and make communication.
-
-
- * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.internetradioclient;

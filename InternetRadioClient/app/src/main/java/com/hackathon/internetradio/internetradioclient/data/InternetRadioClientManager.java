@@ -1,7 +1,5 @@
 /**
  * @file        InternetRadioClientManager.java
- * @brief       InternetRadioClientManager is common gateway.
- * @author      PG
  */
 
 package com.hackathon.internetradio.internetradioclient.data;

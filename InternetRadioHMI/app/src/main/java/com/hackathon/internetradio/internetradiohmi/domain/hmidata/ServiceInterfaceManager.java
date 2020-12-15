@@ -1,6 +1,5 @@
 /**
  * @file        ServiceInterfaceManager.java
- * @author      Praveen P G
  */
 
 package com.hackathon.internetradio.internetradiohmi.domain.hmidata;

@@ -1,12 +1,5 @@
 /**
  * @file IClientInterface.aidl
- * @brief Interface for HMI to Service API calls.
- * @copyright Copyright (C) 2018 MEAA. .
- * Reproduction or transmission in whole or in part, in any form
- * or by any means, electronic, mechanical or otherwise, is
- * prohibited without the prior written consent of the copyright owner.
- * @author	PG
- * @version 	1.0	18.Mar.2018	Zubair KK	Initial version
  */
 
 package com.hackathon.internetradio.lib.internetradiointerface;

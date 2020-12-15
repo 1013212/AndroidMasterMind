@@ -1,8 +1,5 @@
 /**
  * @file        InternetRadioClientHandler.java
- * @brief       Handler class for passing AIDL broadcast notification.
- *              This will avoid concurrent notification.
- * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.internetradioclient.data;

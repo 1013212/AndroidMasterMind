@@ -1,9 +1,5 @@
 /**
  * @file        BrowseFilter.java
- * @brief       Class for browse filter
-
- *
- * @author      Austin Renitz C
  */
 
 package com.hackathon.internetradio.lib.commoninterface.browse;

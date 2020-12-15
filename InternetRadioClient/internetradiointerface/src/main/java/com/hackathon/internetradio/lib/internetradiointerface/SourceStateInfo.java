@@ -1,9 +1,5 @@
 /**
  * @file        SourceStateInfo.java
- * @brief       Class for storing source state details
-
- *
- * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.lib.internetradiointerface;

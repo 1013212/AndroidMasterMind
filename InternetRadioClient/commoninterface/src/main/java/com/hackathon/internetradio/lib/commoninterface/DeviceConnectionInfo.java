@@ -1,9 +1,5 @@
 /**
  * @file        DeviceConnectionInfo.java
- * @brief       Class for device connection info
-
- *
- * @author      Austin Renitez C
  */
 
 package com.hackathon.internetradio.lib.commoninterface;
@@ -79,9 +75,9 @@ public class DeviceConnectionInfo implements Parcelable {
         mSourceType = sourceType;
         mConnectionStatus = connectionStatus;
         mDeviceType = deviceType;
-        mDeviceName = Constants.DEFAULT_DEVICE_NAME;
-        mSerialNumber = Constants.DEFAULT_SERIAL_NUMBER;
-        mPortId = Constants.EMPTY_STRING;
+        mDeviceName = "";
+        mSerialNumber = "";
+        mPortId = "";
         mServiceType = "";
     }
 
@@ -92,10 +88,10 @@ public class DeviceConnectionInfo implements Parcelable {
     public DeviceConnectionInfo(int sourceType) {
         mSourceType = sourceType;
         mConnectionStatus = Constants.ConnectionStatus.DISCONNECTED;
-        mDeviceType = Constants.DeviceType.NONE;
-        mDeviceName = Constants.DEFAULT_DEVICE_NAME;
-        mSerialNumber = Constants.DEFAULT_SERIAL_NUMBER;
-        mPortId = Constants.EMPTY_STRING;
+        mDeviceType = 1;
+        mDeviceName = "";
+        mSerialNumber = "";
+        mPortId = "";
         mServiceType = "";
     }
 

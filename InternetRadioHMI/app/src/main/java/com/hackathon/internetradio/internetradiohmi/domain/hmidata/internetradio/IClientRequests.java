@@ -1,7 +1,5 @@
 /**
- * @file IClientRequests.java
- * @brief Interface for defining HMI requests to Internet Radio Client.
- * @author Praveen
+ * @file IClientRequests.javan
  */
 
 package com.hackathon.internetradio.internetradiohmi.domain.hmidata.internetradio;

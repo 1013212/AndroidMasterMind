@@ -1,9 +1,5 @@
 /**
  * @file        SourceNotifications.java
- * @brief       Class for passing notification to Handler.
-
-
- * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.internetradioclient.data.utils;

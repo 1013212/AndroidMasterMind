@@ -1,9 +1,5 @@
 /**
  * @file        ISourceNotifications.java
- * @brief       Interface for passing notification to Media Service Manager class.
-
-
- * @author      Zubair KK
  */
 
 package com.hackathon.internetradio.internetradioclient.data.utils;
