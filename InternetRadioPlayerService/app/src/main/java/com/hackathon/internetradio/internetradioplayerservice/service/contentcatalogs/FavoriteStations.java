@@ -19,17 +19,6 @@ public class FavoriteStations {
 
     static {
         createMediaMetadataCompat(
-                "http://s35.myradiostream.com:28232/",
-                "Back To Basics",
-                "Rick Astley",
-                "Sound Of Summer",
-                "Jazz",
-                103,
-                TimeUnit.SECONDS,
-                "bagel.mp3",
-                0,
-                "album_art_1");
-        createMediaMetadataCompat(
                 "http://viadj.viastreaming.net:7233/;listen.mp3",
                 "American Roots",
                 "The 126ers",

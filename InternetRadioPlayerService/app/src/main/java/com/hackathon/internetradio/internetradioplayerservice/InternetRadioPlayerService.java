@@ -443,15 +443,7 @@ public class InternetRadioPlayerService  extends MediaBrowserServiceCompat imple
         mAllStations.add("http://titan.shoutca.st:8647/stream");
         mAllStations.add("http://stream.radio.co/s1383afdc9/listen?ver=828256");
         mAllStations.add("http://192.111.140.6:8546/stream");
-        mAllStations.add("http://s35.myradiostream.com:28232/");
-        mAllStations.add("http://dreamsiteradiocp.com:8002/;");
-        mAllStations.add("http://viadj.viastreaming.net:7233/;listen.mp3");
-        mAllStations.add("http://prclive1.listenon.in:9908/;");
-        mAllStations.add("http://vokcast.bluecast.in:8227/986fm");
-        mAllStations.add("http://144.217.195.24:8605/;stream.mp3");
-        mAllStations.add("http://198.245.60.88:8300/stream");
-        mAllStations.add("http://167.114.131.90:5412/stream3");
-        mAllStations.add("http://198.27.67.39:8000/pravasiradio.mp3");
+
 
         mLiveStations.add("http://216.55.141.189:8653/live");
         mLiveStations.add("http://184.154.43.106:8145");
@@ -462,7 +454,6 @@ public class InternetRadioPlayerService  extends MediaBrowserServiceCompat imple
         mLiveStations.add("http://167.114.131.90:5412/stream3");
         mLiveStations.add("http://198.27.67.39:8000/pravasiradio.mp3");
 
-        mFavoriteStations.add("http://s35.myradiostream.com:28232/");
         mFavoriteStations.add("http://viadj.viastreaming.net:7233/;listen.mp3");
         mFavoriteStations.add("http://prclive1.listenon.in:9908/;");
         mFavoriteStations.add("http://144.217.195.24:8605/;stream.mp3");
